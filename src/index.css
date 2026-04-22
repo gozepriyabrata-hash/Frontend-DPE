@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FFFDF0;
+    color: #121212;
+    @apply font-neo antialiased;
+    /* Custom dotted background pattern for a mechanical feel */
+    background-image: radial-gradient(#121212 1px, transparent 1px);
+    background-size: 24px 24px;
+    /* Smooth out scrolling but keep transitions snappy */
+    scroll-behavior: smooth;
+  }
+
+  /* Fun thick scrollbar */
+  ::-webkit-scrollbar {
+    width: 14px;
+    border-left: 3px solid #121212;
+    background: #FFFDF0;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #FFD000;
+    border: 3px solid #121212;
+    border-radius: 0;
+  }
+}
+
+@layer components {
+  /* Core Neobrutalist Button Base */
+  .btn-neo {
+    @apply relative inline-flex items-center justify-center font-display font-black uppercase tracking-wider
+           px-6 py-3 border-3 border-neo-black text-neo-black bg-neo-bg
+           shadow-brutal transition-all duration-150 active:shadow-brutal-sm active:translate-y-[2px] active:translate-x-[2px];
+  }
+  
+  .btn-neo-yellow {
+    @apply btn-neo bg-neo-yellow;
+  }
+  .btn-neo-cyan {
+    @apply btn-neo bg-neo-cyan;
+  }
+  .btn-neo-pink {
+    @apply btn-neo bg-neo-pink text-white;
+  }
+  .btn-neo-green {
+    @apply btn-neo bg-neo-green;
+  }
+
+  /* Core Card Base */
+  .card-neo {
+    @apply bg-white border-4 border-neo-black shadow-brutal-lg;
+  }
+
+  /* Interactive Card (Squishes on hover) */
+  .card-neo-interactive {
+    @apply card-neo transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1 hover:shadow-brutal-xl active:translate-y-1 active:translate-x-1 active:shadow-brutal;
+  }
+
+  /* Badges */
+  .badge-neo {
+    @apply border-2 border-neo-black px-3 py-1 font-display font-bold uppercase text-xs shadow-brutal-sm inline-flex items-center;
+  }
+}
+
+/* Utilities for marquee text */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+}
+
+/* Custom highlight color */
+::selection {
+  background: #FF0073;
+  color: white;
+}
