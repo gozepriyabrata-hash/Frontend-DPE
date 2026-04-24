@@ -13,12 +13,10 @@ import {
   Wind,
   LocateFixed
 } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 import OlaRouteMap from '../components/OlaRouteMap';
 import Vehicle3DCard from '../components/Vehicle3DCard';
 
-// API Configuration
-const API_BASE = 'http://localhost:5000/api';
 
 const CabEngine = () => {
   const [source, setSource] = useState('');
@@ -50,7 +48,7 @@ const CabEngine = () => {
       }
 
       try {
-        const res = await axios.get(`${API_BASE}/cab/autocomplete?input=${query}`);
+        const res = await api.get(`/cab/autocomplete?input=${query}`);
         setSuggestions(res.data);
       } catch (err) {
         console.error('Autocomplete error:', err);
@@ -72,7 +70,7 @@ const CabEngine = () => {
       try {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        const res = await axios.get(`${API_BASE}/cab/reverse-geocode?lat=${lat}&lng=${lng}`);
+        const res = await api.get(`/cab/reverse-geocode?lat=${lat}&lng=${lng}`);
         setSource(res.data.address);
         setSourceId(res.data.placeId);
         setPreSourceCoords(`${lat},${lng}`);
@@ -96,7 +94,7 @@ const CabEngine = () => {
     
     setLoading(true);
     try {
-      const res = await axios.post(`${API_BASE}/cab/estimate`, {
+      const res = await api.post('/cab/estimate', {
         source,
         destination,
         sourceId,
@@ -123,7 +121,7 @@ const CabEngine = () => {
       setSourceId(suggestion.placeId);
       // Fetch coords immediately for map auto-focus
       try {
-        const res = await axios.get(`${API_BASE}/cab/place-details?placeId=${suggestion.placeId}`);
+        const res = await api.get(`/cab/place-details?placeId=${suggestion.placeId}`);
         if (res.data.coords) setPreSourceCoords(res.data.coords);
       } catch (err) { console.error(err); }
     } else {
@@ -131,7 +129,7 @@ const CabEngine = () => {
       setDestId(suggestion.placeId);
       // Fetch coords immediately for map auto-focus
       try {
-        const res = await axios.get(`${API_BASE}/cab/place-details?placeId=${suggestion.placeId}`);
+        const res = await api.get(`/cab/place-details?placeId=${suggestion.placeId}`);
         if (res.data.coords) setPreDestCoords(res.data.coords);
       } catch (err) { console.error(err); }
     }
